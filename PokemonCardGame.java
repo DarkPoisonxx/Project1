@@ -6,14 +6,14 @@ public class PokemonCardGame{
     private ArrayList<Card> deck;
     private ArrayList<Card> hand;
 
-    public PokemonCardGame(int Pokemon){
+    public PokemonCardGame(int numPokemon){
         deck = new ArrayList<Card>();
         hand = new ArrayList<Card>();
 
         for(int i = 0; i < numPokemon; i++){
             deck.add(new Pokemon());
         }
-
+        int deckSize = 60;
         for(int i = 1; i < deckSize - numPokemon; i++){
             deck.add(new Energy());
         }
@@ -33,15 +33,24 @@ public class PokemonCardGame{
         }
     }
 
-    public boolean evaluate OpeningHand(){
+    public boolean evaluateOpeningHand(){
         boolean havePokemon = false;
         for(int i = 0; i < hand.size(); i++){
             Card currentCard = hand.get(i);
             if(currentCard instanceof Pokemon){
                 return true;
             }
-            return false;
         }
+        return false;
+    }
+
+    public boolean openingHandTest(){
+        drawHand();
+        int goodHands = 0;
+        if(evaluateOpeningHand() == true){
+            return true;
+        }
+        return false;
     }
 
     public void run(){

@@ -1,4 +1,4 @@
-public class Bulbasaur extends Pokemon{
+public class bulbasaur extends Pokemon{
 
     public bulbasaur(){
         setHp(70);

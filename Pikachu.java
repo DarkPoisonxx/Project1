@@ -1,6 +1,6 @@
-public class Pikachu extends Pokemon{
+public class pikachu extends Pokemon{
     public pikachu(){
-        setHp(70);    
+        setHp(70);
     }
 
     public void quickAttack(Pokemon unfortunatePokemon){

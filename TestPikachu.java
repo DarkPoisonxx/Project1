@@ -1,8 +1,8 @@
 public class TestPikachu{
     public static void main(String[] args){
-        Pikachu pikaMain = new pikachu();
-        Pikachu pikaTarget = new pikachu();
-        Bulbasaur newBulb = new bulbasaur();
+        pikachu pikaMain = new pikachu();
+        pikachu pikaTarget = new pikachu();
+        bulbasaur newBulb = new bulbasaur();
 
         System.out.println("Bulbasaur use leech seed");
             newBulb.leechSeed(pikaMain);

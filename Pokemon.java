@@ -1,4 +1,5 @@
-oublic class Pokemon extends Card{
+
+public class Pokemon extends Card{
     private int hp;
 
     public int getHp(){
