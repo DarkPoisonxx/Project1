@@ -34,7 +34,6 @@ public class PokemonCardGame{
     }
 
     public boolean evaluateOpeningHand(){
-        boolean havePokemon = false;
         for(int i = 0; i < hand.size(); i++){
             Card currentCard = hand.get(i);
             if(currentCard instanceof Pokemon){
@@ -46,7 +45,6 @@ public class PokemonCardGame{
 
     public boolean openingHandTest(){
         drawHand();
-        int goodHands = 0;
         if(evaluateOpeningHand() == true){
             return true;
         }
