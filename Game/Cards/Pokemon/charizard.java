@@ -17,11 +17,12 @@ public class charizard extends Pokemon {
 
     public void getAttacks(){
         System.out.println("Fire Spin: 1");
-        System.out.println("clawSlash");
+        System.out.println("ClawSlash: 2");
     }
 
     @Override
-    public void attack(Pokemon target) {
+    public void attack(Pokemon target,int attack){
+      
   
     }
 }

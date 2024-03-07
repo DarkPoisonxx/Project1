@@ -26,8 +26,10 @@ public class bulbasaur extends Pokemon {
     public void getAttacks(){
         System.out.println("Leach Seed: 1");
     }
-    public void attack(Pokemon target){
+    public void attack(Pokemon target,int attack){
+        if(attack == 1)
         leechSeed(target);
+
     }
     
 

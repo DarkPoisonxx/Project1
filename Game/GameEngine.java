@@ -3,8 +3,8 @@ package Game;
 public class GameEngine {
     private player player1;
     private player player2;
-    private player currentPlayer;
-    private player currentOpponent;
+    private static player currentPlayer;
+    private static player currentOpponent;
 
     public GameEngine(player input1, player input2) {
         this.player1 = input1;
@@ -18,6 +18,8 @@ public class GameEngine {
         System.out.println("Let the Pokemon Card Game begin!");
             player1.beginningHand(player1);
             player2.beginningHand(player2);
+            currentPlayer= player1;
+            currentOpponent = player2;
                 while (!isGameOver()) {
             // Display current player's turn 
                     System.out.println(currentPlayer.getName() + "'s turn:");
@@ -38,7 +40,8 @@ public class GameEngine {
         return player1.getDeck().isEmpty() || player2.getDeck().isEmpty();
     }
 
-    public player getCurrentOpponent() {
+    
+    public static player getCurrentOpponent() {
         return currentOpponent;
     }
     

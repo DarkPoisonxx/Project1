@@ -21,4 +21,7 @@ public class pikachu extends Pokemon{
         System.out.println("Electro Ball: 2");
     }
 
+    public void attack(Pokemon target,int attack){
+        
+    }
 }

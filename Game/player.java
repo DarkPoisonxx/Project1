@@ -22,7 +22,7 @@ public class player implements PokemonCardGame{
     private ArrayList<Card> discard;
     private ArrayList<Card> prizePile;
     private String name;
-    private Pokemon active = new Pokemon();
+    private static Pokemon active = new Pokemon();
     private ArrayList<Pokemon> bench;
     int turn = 1;
     public player(){
@@ -132,10 +132,13 @@ public class player implements PokemonCardGame{
             i +=1;
         }
     }
-    public void getActive(){
+    public void getActivePokemon(){
         System.out.println("Your active pokemon " + active.checkCard(active) + " Has:");
         System.out.println(active.getHp() + " Hp");
         System.out.println(active.getEnergy()+ " Energy");
+    }
+    public Pokemon getActive(){
+        return active;
     }
     
 
@@ -212,7 +215,8 @@ public class player implements PokemonCardGame{
     }
     public void turnChoices(int input){
         if(input == 1){
-            active.attack(getOpponent());
+            active.getAttacks();
+            active.attack(GameEngine.getCurrentOpponent().getActive(),active.getAttack());
             turnComplete = true;
         }
         if(input == 2){
@@ -232,9 +236,6 @@ public class player implements PokemonCardGame{
     }
     boolean turnComplete = false;
     public void playTurn(){
-        System.out.println(turn + 1 % 2);
-        
-        
         drawTurnCard();
         
         while(!turnComplete){
@@ -253,6 +254,10 @@ public class player implements PokemonCardGame{
         turn = turn + 1 % 2;
         }
     }
+
+    public void turnStats(){
+
+    }
     @Override
     public void attack(Pokemon target) {
         this.active.getAttacks();
@@ -262,15 +267,16 @@ public class player implements PokemonCardGame{
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'discard'");
     }
-    @Override
-    public GameEngine getCurrentOpponent(){
-        return player;
-    }
 
     @Override
     public void player() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'player'");
+    }
+    @Override
+    public GameEngine getCurrentOppenent() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getCurrentOppenent'");
     }
     
     

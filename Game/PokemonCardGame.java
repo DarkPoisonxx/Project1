@@ -14,6 +14,7 @@ public interface PokemonCardGame {
     void discard();
     ArrayList<Pokemon> getBench();
     void player();
-    void getActive();
+    void getActivePokemon();
+    Pokemon getActive();
     GameEngine getCurrentOppenent();
 }
