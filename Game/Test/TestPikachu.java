@@ -1,6 +1,6 @@
-package Test;
-import Cards.Pokemon.bulbasaur;
-import Cards.Pokemon.pikachu;
+package Game.Test;
+import Game.Cards.Pokemon.bulbasaur;
+import Game.Cards.Pokemon.pikachu;
 
 public class TestPikachu{
     public static void main(String[] args){

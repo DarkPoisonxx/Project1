@@ -1,6 +1,8 @@
+package Game.Test;
+
 
 import java.text.DecimalFormat;
-public class TestBestNumPokemon
+public class TestBestNumPokemon 
 {
     public static void main(String[] args){
         for(int i = 1; i <= 60; i++){
@@ -21,12 +23,12 @@ public class TestBestNumPokemon
             }
             iteration += 1;
         }
-        System.out.println("There were " + goodHands + " good hands with " + numPokemon +" pokemon in " + iterations + " decks");
+     //   System.out.println("There were " + goodHands + " good hands with " + numPokemon +" pokemon in " + iterations + " decks");
         rawPercentChance = 100 * ((double)goodHands / (double)iterations);
         DecimalFormat decimalFormat = new DecimalFormat("#.##");
         String percentChance = decimalFormat.format(rawPercentChance);
         System.out.println("This gives you a " + percentChance + "% chance to get a good hand with " + numPokemon + " pokemon");
-        System.out.println("With " + numPokemon + " Pokemon " + percentChance + "%");
+       // System.out.println("With " + numPokemon + " Pokemon " + percentChance + "%");
     }
 }
 }

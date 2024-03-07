@@ -1,7 +1,11 @@
-package Cards.Pokemon;
-public class bulbasaur extends Pokemon{
+package Game.Cards.Pokemon;
+import Game.PokemonCardGame;
+@SuppressWarnings("unused")
+public class bulbasaur extends Pokemon {
     public bulbasaur(){
         setHp(70);
+        setEnergy(0);
+        
     }
 
     public void leechSeed(Pokemon target){
@@ -18,4 +22,15 @@ public class bulbasaur extends Pokemon{
 
         target.setHp(resultingHp);
     }
+
+    public void getAttacks(){
+        System.out.println("Leach Seed: 1");
+    }
+    public void attack(Pokemon target){
+        leechSeed(target);
+    }
+    
+
+    
+    
 }

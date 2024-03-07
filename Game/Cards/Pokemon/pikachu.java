@@ -1,7 +1,8 @@
-package Cards.Pokemon;
+package Game.Cards.Pokemon;
 public class pikachu extends Pokemon{
     public pikachu(){
         setHp(70);
+        setEnergy(0);
     }
 
     public void quickAttack(Pokemon unfortunatePokemon){
@@ -13,6 +14,11 @@ public class pikachu extends Pokemon{
 
     public void electroBall(){
         //deals 60 damage
+    }
+
+    public void getAttacks(){
+        System.out.println("Quick Attack: 1");
+        System.out.println("Electro Ball: 2");
     }
 
 }

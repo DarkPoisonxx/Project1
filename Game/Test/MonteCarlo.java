@@ -1,8 +1,11 @@
+package Game.Test;
+
 
 import java.util.ArrayList;
 
-import Cards.Card;
-import Cards.Pokemon.Pokemon;
+import Game.player;
+import Game.Cards.Card;
+import Game.Cards.Pokemon.Pokemon;
 
 public class MonteCarlo extends player{
     public MonteCarlo(int numPokemon){
@@ -10,7 +13,7 @@ public class MonteCarlo extends player{
     }
 
     
-    public boolean evaluateOpeningHand(player player1){
+    public static boolean evaluateOpeningHand(player player1){
         ArrayList<Card> hand = player1.getHand();
         for(int i = 0; i < hand.size(); i++){
             Card currentCard = hand.get(i);
