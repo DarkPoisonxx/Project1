@@ -7,22 +7,27 @@ public class charizard extends Pokemon {
         setEnergy(0);
     }
 
-    public void fireSPin(){
-      // 220
-     //  discard 2 energy
+    public void fireSPin(Pokemon target){
+      if(this.getEnergy() >= 2){
+        target.setHp(target.getHp() - 220);
+        this.setEnergy(this.getEnergy() - 2);
+      }
     }
-    public void clawSlash(){
-      //  80
+    public void clawSlash(Pokemon target){
+      target.setHp(target.getHp() - 220);
     }
 
     public void getAttacks(){
         System.out.println("Fire Spin: 1");
         System.out.println("ClawSlash: 2");
     }
+    
 
-    @Override
     public void attack(Pokemon target,int attack){
-      
-  
-    }
+      if(attack == 1)
+      clawSlash(target);
+      if(attack==2)
+      fireSPin(target);
+
+  }
 }

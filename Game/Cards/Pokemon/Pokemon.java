@@ -1,11 +1,12 @@
 package Game.Cards.Pokemon;
 import java.util.Scanner;
-
+import Game.player;
 import Game.Cards.Card;
 public class Pokemon extends Card {
     private int hp;
     private int energy;
-    Scanner inputScanner = new Scanner(System.in);
+    static Scanner inputScanner = new Scanner(System.in);
+  
     public int getHp(){
         return hp;
     }
@@ -34,7 +35,16 @@ public class Pokemon extends Card {
         attk = inputScanner.nextInt();
         return attk;
     }
-    
+    public static void checkActiveStatus(player player){
+        if (player.getActive().getHp() < 0){
+            int replacement;
+            System.out.println(player.getActive().checkCard(player.getActive()) + " is dead");
+            System.out.println("please place a replacement active Pokemon from bench");
+            player.getBench(player.getBench());
+            replacement = inputScanner.nextInt();
+
+        }
+    }
     
     
 

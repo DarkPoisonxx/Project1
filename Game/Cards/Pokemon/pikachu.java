@@ -12,7 +12,7 @@ public class pikachu extends Pokemon{
         unfortunatePokemon.setHp(resultingHp);
     }
 
-    public void electroBall(){
+    public void electroBall(Pokemon target){
         //deals 60 damage
     }
 
@@ -22,6 +22,9 @@ public class pikachu extends Pokemon{
     }
 
     public void attack(Pokemon target,int attack){
-        
+        if(attack == 1)
+      quickAttack(target);
+      if(attack==2)
+      electroBall(target);
     }
 }

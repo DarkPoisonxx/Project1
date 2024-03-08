@@ -22,7 +22,7 @@ public class player implements PokemonCardGame{
     private ArrayList<Card> discard;
     private ArrayList<Card> prizePile;
     private String name;
-    private static Pokemon active = new Pokemon();
+    private Pokemon active = new Pokemon();
     private ArrayList<Pokemon> bench;
     int turn = 1;
     public player(){
@@ -43,7 +43,7 @@ public class player implements PokemonCardGame{
         }
     }
     
-    public player(int numBulbs,int numPikas,int numCharizards, int numProfResearch, int numPokemonCollector, int numFlareGrunt, String nameInput){
+    public player(int numBulbs,int numPikas,int numCharizards, int numProfResearch, int numPokemonCollector, int numFlareGrunt, String nameInput, int numEnergy){
         deck = new ArrayList<>();
         hand = new ArrayList<>();
         discard = new ArrayList<>();
@@ -68,6 +68,9 @@ public class player implements PokemonCardGame{
         }
         for (int i = 0; i < numFlareGrunt; i++) {
             deck.add(new flareGrunt());
+        }
+        for (int i = 0; i < numEnergy; i++) {
+            deck.add(new Energy());
         }
 
         drawHand();
@@ -140,8 +143,24 @@ public class player implements PokemonCardGame{
     public Pokemon getActive(){
         return active;
     }
-    
 
+    public ArrayList<Card> getPrize(){
+        return this.prizePile;
+    }
+    
+    public void getEnergyCard(){
+        System.out.println("hi");
+        for(int i = 0 ; i < this.getHand().size();i++){
+            if(hand.get(i) instanceof Energy){
+                System.out.println("Energy: " + i);
+            }
+            if(inputScanner.nextInt() != 9)
+                this.active.setEnergy();
+                hand.remove(i);
+        }
+        System.out.println("hi");
+        inputScanner.nextInt();
+    }
 
 //drawing cards
     public Card drawCard(){
@@ -151,6 +170,7 @@ public class player implements PokemonCardGame{
         deck.remove(cardIndex);
         return drawCard;
     }
+//draws a card and displays the card per turn
     public Card drawTurnCard(){
         Random rng = new Random();
         int cardIndex = rng.nextInt(deck.size());
@@ -218,10 +238,21 @@ public class player implements PokemonCardGame{
             active.getAttacks();
             active.attack(GameEngine.getCurrentOpponent().getActive(),active.getAttack());
             turnComplete = true;
+            System.out.println(active.checkCard(active) + " health is at " +active.getHp()); 
+            System.out.println(GameEngine.getCurrentOpponent().getActive().checkCard(GameEngine.getCurrentOpponent().getActive()) + " health is at " +GameEngine.getCurrentOpponent().getActive().getHp());
         }
         if(input == 2){
-            System.out.println("which energy would you like to use 9 to finish");
-            active.setEnergy();
+            boolean hasEnergy = false;
+            for(int i = 0; i < hand.size(); i++ ){
+                if(hand.get(i) instanceof Energy){
+                    hasEnergy = true;
+                }
+                if (hasEnergy = true){
+                    System.out.println("which energy would you like to use 9 to finish");
+                    getEnergyCard();
+                }
+        }
+
         }
         if(input == 3){
            // switch active
@@ -236,10 +267,12 @@ public class player implements PokemonCardGame{
     }
     boolean turnComplete = false;
     public void playTurn(){
+        turnComplete = false;
+        Pokemon.checkActiveStatus(GameEngine.getCurrentPlayer());
         drawTurnCard();
         
         while(!turnComplete){
-        getActive();
+        System.out.println("Active Pokemon: \n" + getActive().checkCard(active));
         getBench(this.bench);
         getHand(this.hand);
         System.out.println("attack: 1");
