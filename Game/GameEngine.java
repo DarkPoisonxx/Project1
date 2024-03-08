@@ -31,14 +31,17 @@ public class GameEngine {
                     currentPlayer = (currentPlayer == player1) ? player2 : player1;
                     currentOpponent = (currentOpponent == player2 ? player1 : player2);
         }
-
-        System.out.println("Game over. Thanks for playing!");
+        if(player1.getDeck().isEmpty() ||  player2.getPrize().isEmpty())
+            System.out.println("Player 2 Wins!");
+        else
+            System.out.println("Player 1 Wins!");
     }
 
     private boolean isGameOver() {
         // Checks to see if either players hands are empty which will end the game
-        return player1.getDeck().isEmpty() || player2.getDeck().isEmpty();
-       // return player1.getPrize().isEmpty() || player2.getPrize().isEmpty();
+        return player1.getDeck().isEmpty() || player2.getDeck().isEmpty()||player1.getPrize().isEmpty() || player2.getPrize().isEmpty();
+        
+        
     }
 
     

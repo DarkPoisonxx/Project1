@@ -14,11 +14,11 @@ public class bulbasaur extends Pokemon {
         int resultingHp = currentHp - 20;
 
         int thisCurrentHp = this.getHp();
-        if (thisCurrentHp + 20 > 70){
+        if (thisCurrentHp + 10 > 70){
             this.setHp(70); 
         }
         else
-        this.setHp(thisCurrentHp + 20);
+        this.setHp(thisCurrentHp + 10);
 
         target.setHp(resultingHp);
     }

@@ -10,25 +10,26 @@ import Game.Cards.Pokemon.Pokemon;
 import Game.Cards.Pokemon.bulbasaur;
 import Game.Cards.Pokemon.charizard;
 import Game.Cards.Pokemon.pikachu;
+import Game.Cards.Trainer.Trainer;
 import Game.Cards.Trainer.flareGrunt;
 import Game.Cards.Trainer.pokemonCollector;
 import Game.Cards.Trainer.professorResearch;
-
-
 public class player implements PokemonCardGame{
     Scanner inputScanner = new Scanner(System.in);
-    private ArrayList<Card> deck;
-    private ArrayList<Card> hand;
-    private ArrayList<Card> discard;
-    private ArrayList<Card> prizePile;
-    private String name;
-    private Pokemon active = new Pokemon();
-    private ArrayList<Pokemon> bench;
+        private ArrayList<Card> deck;
+        private ArrayList<Card> hand;
+        private ArrayList<Card> prizePile;
+        private String name;
+        private Pokemon active = new Pokemon();
+        private ArrayList<Pokemon> bench;
     int turn = 1;
+
+
+    //constructors
     public player(){
         deck = new ArrayList<>();
         hand = new ArrayList<>();
-        discard = new ArrayList<>();
+        new ArrayList<>();
     }
     public player(int numPokemon){
         this();
@@ -42,11 +43,10 @@ public class player implements PokemonCardGame{
             deck.add(new Energy());
         }
     }
-    
     public player(int numBulbs,int numPikas,int numCharizards, int numProfResearch, int numPokemonCollector, int numFlareGrunt, String nameInput, int numEnergy){
         deck = new ArrayList<>();
         hand = new ArrayList<>();
-        discard = new ArrayList<>();
+        new ArrayList<>();
         bench = new ArrayList<>();
         active = new Pokemon();
         name = nameInput;
@@ -75,9 +75,17 @@ public class player implements PokemonCardGame{
 
         drawHand();
     }
+
+
+
 //setters
     public void setName(String nameInput){
         this.name = nameInput;
+    }
+
+    public void setActiveBench(int i){
+        this.active = this.getBench().get(i);
+        getBench().remove(i);
     }
     public void setActive(int i){
         if (this.hand.get(i) instanceof Pokemon){
@@ -92,18 +100,22 @@ public class player implements PokemonCardGame{
         
         boolean input = true;
         int i;
+
         while(evaluateOpeningHand(player) && input){
             getHand(this.hand);
             System.out.println("add which pokemon you want on your bench or type 9 to end turn:");
             i = inputScanner.nextInt();
+
             if(i == 9)
-            input = false;
+                input = false;
             if (i < this.hand.size() && this.hand.get(i) instanceof Pokemon){
                 bench.add((Pokemon) hand.get(i));
                 hand.remove(i);
             }
-           
         }
+    }
+    public void setHand(Card card){
+        hand.add(card);
     }
 
 //getters
@@ -127,9 +139,13 @@ public class player implements PokemonCardGame{
     public ArrayList<Pokemon> getBench(){
         return new ArrayList<>(bench);
     }
+    public void removeBench(int i){
+        this.bench.remove(i);
+    }
     public void getBench(ArrayList<Pokemon> bench) {
         System.out.println("Current bench:");
         int i = 0;
+
         for (Card card : bench) {
             System.out.println( i + ": " + card.checkCard(card));
             i +=1;
@@ -147,19 +163,26 @@ public class player implements PokemonCardGame{
     public ArrayList<Card> getPrize(){
         return this.prizePile;
     }
+
+    public Pokemon getTarget(player player){
+       return player.getActive();
+    }
     
     public void getEnergyCard(){
-        System.out.println("hi");
+        int choice;
         for(int i = 0 ; i < this.getHand().size();i++){
             if(hand.get(i) instanceof Energy){
                 System.out.println("Energy: " + i);
-            }
-            if(inputScanner.nextInt() != 9)
-                this.active.setEnergy();
-                hand.remove(i);
+            } 
         }
-        System.out.println("hi");
-        inputScanner.nextInt();
+        System.out.println("pick energy");
+        choice = inputScanner.nextInt();
+
+        if(choice != 9){
+            this.active.setEnergy();
+            hand.remove(choice);
+        }
+        
     }
 
 //drawing cards
@@ -189,8 +212,9 @@ public class player implements PokemonCardGame{
 
 //hand and discard 
     public void discardHand(){
-        discard.addAll(hand);
         hand.clear(); 
+        this.drawHand();
+        System.out.println("hi");
     }
     public void makePrizePile(){
         for(int i = 0; i< 6;i++){
@@ -233,38 +257,50 @@ public class player implements PokemonCardGame{
         setBench(player);
 
     }
+
     public void turnChoices(int input){
         if(input == 1){
+            turnComplete = true;
             active.getAttacks();
             active.attack(GameEngine.getCurrentOpponent().getActive(),active.getAttack());
-            turnComplete = true;
             System.out.println(active.checkCard(active) + " health is at " +active.getHp()); 
             System.out.println(GameEngine.getCurrentOpponent().getActive().checkCard(GameEngine.getCurrentOpponent().getActive()) + " health is at " +GameEngine.getCurrentOpponent().getActive().getHp());
         }
         if(input == 2){
-            boolean hasEnergy = false;
+            int hasEnergy = 0; 
+            while(hasEnergy >= 1){
             for(int i = 0; i < hand.size(); i++ ){
                 if(hand.get(i) instanceof Energy){
-                    hasEnergy = true;
+                    hasEnergy += 1;
                 }
-                if (hasEnergy = true){
+                
+            }       
+                if (hasEnergy >= 0){
                     System.out.println("which energy would you like to use 9 to finish");
                     getEnergyCard();
+                    hasEnergy -= 1;
                 }
+        
+            }
         }
-
-        }
+        // if(input == 3){
+        //    // switch active
+        // }
         if(input == 3){
-           // switch active
+            Trainer.useTrainer(this);
         }
         if(input == 4){
-        //    use trainer
-        }
-        if(input == 5){
-       //     place bench
+            setBench(this);
         }
         
     }
+
+        public void wrongMove(){
+            System.out.println("not enough energy");
+            turnComplete = false;
+        }
+
+    
     boolean turnComplete = false;
     public void playTurn(){
         turnComplete = false;
@@ -277,9 +313,9 @@ public class player implements PokemonCardGame{
         getHand(this.hand);
         System.out.println("attack: 1");
         System.out.println("play energy 2");
-        System.out.println("switch pokemon: 3");
-        System.out.println("use trainer: 4");
-        System.out.println("Place bench 5");
+        //System.out.println("switch pokemon: 3");
+        System.out.println("use trainer: 3");
+        System.out.println("Place bench 4");
         int decision = inputScanner.nextInt();
         if(decision == 1)
         turnComplete = true;

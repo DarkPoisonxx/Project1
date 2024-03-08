@@ -14,6 +14,9 @@ public class pikachu extends Pokemon{
 
     public void electroBall(Pokemon target){
         //deals 60 damage
+        int currentHp = target.getHp();
+        int resultingHp = currentHp - 60;
+        target.setHp(resultingHp);
     }
 
     public void getAttacks(){

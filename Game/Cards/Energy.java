@@ -6,5 +6,6 @@ public class Energy extends Card{
 
     public static void playEnergy(Pokemon target){
         target.setEnergy();
+        System.out.println("Current Energy: "+ target.getEnergy());;
     }
 }

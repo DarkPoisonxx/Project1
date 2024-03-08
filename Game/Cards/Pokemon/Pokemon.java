@@ -42,6 +42,10 @@ public class Pokemon extends Card {
             System.out.println("please place a replacement active Pokemon from bench");
             player.getBench(player.getBench());
             replacement = inputScanner.nextInt();
+            player.setActiveBench(replacement);
+            player.removeBench(replacement);
+            player.setHand(player.getPrize().get(0));
+            System.out.println("you won a prize card");
 
         }
     }
